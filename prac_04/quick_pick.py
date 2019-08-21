@@ -6,9 +6,10 @@ PICKS = []
 def main():
     number_of_picks = int(input("Enter how many quick picks: "))
     temp_list = []
+    line_list = []
 
     for outer_loop in range(0, number_of_picks, 1):
-        temp_list.clear()
+
         first_num = random.randint(1, 44)
         print("{0:>3}".format(first_num), end='  ')
         temp_list.append(first_num)
@@ -18,8 +19,11 @@ def main():
                 next_num = random.randint(1, 44)
             print("{0:>3}".format(next_num), end='  ')
             temp_list.append(next_num)
+        line_list = temp_list.copy()
         print(" ")
-        PICKS.append(temp_list)
+        PICKS.append(line_list)
+        temp_list.clear()
+    print(PICKS)
 
 
 main()
