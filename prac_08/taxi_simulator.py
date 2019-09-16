@@ -15,6 +15,7 @@ def main():
 
     while user_input.upper() != 'Q':
         if user_input.upper() == 'C':
+            print("Taxis available:")
             show_taxi(taxis)
             taxi_num = int_input_checker("Choose taxi: ")
 
@@ -25,13 +26,25 @@ def main():
                 print("Taxi doesn't exist in No.{}".format(taxi_num))
 
         elif user_input.upper() == 'D':
-            # TODO
-            print("drive")
+            if current_taxi != "":
+                drive_in_km = int_input_checker("Drive how far? :")
+                current_taxi.drive(drive_in_km)
+                print("Your {} trip cost you ${}".format(current_taxi.name, current_taxi.get_fare()))
+                bill_to_date += float(current_taxi.get_fare())
+                current_taxi.start_fare()
+                print("Bill to date: ${}".format(bill_to_date))
+            else:
+                print("Select a taxi first!")
+
         else:
             print("Invalid input! Please Make a Selection")
 
         print(MENU)
         user_input = input_checker(">>> ")
+
+    print("Total trip cost: ${}".format(bill_to_date))
+    print("Taxis are now:")
+    show_taxi(taxis)
 
 
 def int_input_checker(txt):
@@ -58,7 +71,6 @@ def input_checker(txt):
 
 
 def show_taxi(data):
-    print("Taxis available:")
     count = 1
     for taxi in data:
         print("{0} - {1}".format(count, taxi))
